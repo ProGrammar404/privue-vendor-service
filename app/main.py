@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
-
+from app.core.database import engine
+from sqlmodel import SQLModel
 from app.routers import vendor, metric, score, admin
 from app.db_migrations import run_migrations
 
@@ -14,6 +15,7 @@ async def lifespan(app: FastAPI):
         print("✅ Migrations complete!")
     except Exception as e:
         print(f"❌ Migration failed: {e}")
+        SQLModel.metadata.create_all(engine)  # <-- fallback
     yield
     # Shutdown (optional cleanup here later)
     print("🔻 Application shutting down...")
