@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environments
+venv/
+.env
+
+# SQLite test DB
+test_db.sqlite
+
+# Alembic
+migrations/__pycache__/
+app/__pycache__/
+
+# System / Editor files
+.DS_Store
+.idea/
+.vscode/
