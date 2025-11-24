@@ -62,12 +62,14 @@ A backend microservice to onboard vendors, ingest performance metrics, compute a
 ### 1️⃣ Create Vendor
 
 ```bash
-curl -X POST "https://privue-vendor-service.onrender.com/vendors" \
-     -H "Content-Type: application/json" \
-     -d '{
-           "name": "Acme Supplies Pvt Ltd",
-           "category": "supplier"
-         }'
+curl -X 'POST' \
+  'https://privue-vendor-service.onrender.com/vendors/' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "name": "Acme Pvt Ltd",
+  "category": "supplier"
+}'
 ```
 
 ---
@@ -75,15 +77,17 @@ curl -X POST "https://privue-vendor-service.onrender.com/vendors" \
 ### 2️⃣ Submit Vendor Metrics
 
 ```bash
-curl -X POST "https://privue-vendor-service.onrender.com/vendors/1/metrics" \
-     -H "Content-Type: application/json" \
-     -d '{
-           "timestamp": "2025-01-01T10:00:00Z",
-           "on_time_delivery_rate": 92,
-           "complaint_count": 2,
-           "missing_documents": false,
-           "compliance_score": 88
-         }'
+curl -X 'POST' \
+  'https://privue-vendor-service.onrender.com/metrics/1' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "on_time_delivery_rate": 100,
+  "complaint_count": 0,
+  "missing_documents": true,
+  "compliance_score": 100,
+  "timestamp": "2025-11-24T17:03:19.440Z"
+}'
 ```
 
 ---
@@ -91,7 +95,9 @@ curl -X POST "https://privue-vendor-service.onrender.com/vendors/1/metrics" \
 ### 3️⃣ Get Vendor Details (includes latest score)
 
 ```bash
-curl -X GET "https://privue-vendor-service.onrender.com/vendors/1"
+curl -X 'GET' \
+  'https://privue-vendor-service.onrender.com/vendors/1' \
+  -H 'accept: application/json'
 ```
 
 ---
@@ -99,7 +105,9 @@ curl -X GET "https://privue-vendor-service.onrender.com/vendors/1"
 ### 4️⃣ Get Vendor Score History
 
 ```bash
-curl -X GET "https://privue-vendor-service.onrender.com/vendors/1/scores?limit=5&offset=0"
+curl -X 'GET' \
+  'https://privue-vendor-service.onrender.com/scores/1?limit=10&offset=0' \
+  -H 'accept: application/json'
 ```
 
 ---
@@ -107,7 +115,10 @@ curl -X GET "https://privue-vendor-service.onrender.com/vendors/1/scores?limit=5
 ### 5️⃣ Trigger Score Recalculation (Admin API)
 
 ```bash
-curl -X POST "https://privue-vendor-service.onrender.com/admin/recompute-scores"
+curl -X 'POST' \
+  'https://privue-vendor-service.onrender.com/admin/recompute-scores' \
+  -H 'accept: application/json' \
+  -d ''
 ```
 
 ---
@@ -115,7 +126,9 @@ curl -X POST "https://privue-vendor-service.onrender.com/admin/recompute-scores"
 ### 6️⃣ Health Check
 
 ```bash
-curl "https://privue-vendor-service.onrender.com/health"
+curl -X 'GET' \
+  'https://privue-vendor-service.onrender.com/health' \
+  -H 'accept: application/json'
 ```
 
 ---
